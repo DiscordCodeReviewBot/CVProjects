@@ -1,9 +1,9 @@
-
+import sys
 
 class SudokuSolver:
 
-    def __init__(self):
-        self.board = [["-" for x in range(9)] for y in range(9)]
+    def __init__(self, board):
+        self.board = board
         self.current_coords = (0, 0)
 
     def add_to_board(self, column, row, number):
@@ -60,7 +60,7 @@ class SudokuSolver:
     def find_next_not_aasigned(self):
         for i in range(9):
             for j in range(9):
-                if self.board[i][j] == "-":
+                if self.board[i][j] == "":
                     return i, j
         return False
 
@@ -75,6 +75,25 @@ class SudokuSolver:
                 self.board[x_y_pair[0]][x_y_pair[1]] = number
                 if self.solve() is True:
                     return True
-                self.board[x_y_pair[0]][x_y_pair[1]] = "-"
+                self.board[x_y_pair[0]][x_y_pair[1]] = ""
         return False
+
+if __name__ == "__main__":
+    f = open("boardinfo.txt","r")
+    f2 = open("boardresult.txt","w+")
+    board = eval(f.read())
+    solver = SudokuSolver(board)
+    solver.solve()
+    f2.write(str(board))
+
+
+
+
+
+
+
+
+
+
+
 
